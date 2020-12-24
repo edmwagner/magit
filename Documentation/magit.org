@@ -8666,6 +8666,26 @@ Try to use ~emacsclient~ (without using ~--alternate-editor~).  If that
 succeeds, do nothing else.  Otherwise start ~emacs &~ (and ~init.el~ must
 call ~server-start~) and try to use ~emacsclient~ again.
 
+With emacs versions after 26.1 you may set ~--alternate-editor~ to the
+empty string.  Pay attention to the use of single and double quotes as
+well as the use of the `=` sign when setting the `EDITOR` variable.
+
+#+BEGIN_SRC shell-script
+  $ killall emacs
+  $ EDITOR='emacsclient --alternate-editor="" --create-frame' git commit
+#+END_SRC
+
+Or in git config like this:
+
+#+BEGIN_SRC shell-script
+  $ killall emacs
+  $ git config --global core.editor "emacsclient --alternate-editor='' --create-frame"
+  $ git commit
+#+END_SRC
+
+Replace `--create-frame` with `--tty`  if you would like to now open
+a graphical frame and stay in your tty.
+
 *** Point ends up inside invisible text when jumping to a file-visiting buffer
 
 This can happen when you type ~RET~ on a hunk to visit the respective
